@@ -61,16 +61,6 @@
     margin-bottom: 28px;
     font-weight: 300;
   }
-  .hero .years {
-    font-size: 18px;
-    color: #c8b8a5;
-    letter-spacing: 4px;
-    border-top: 1px solid rgba(200,184,165,0.2);
-    border-bottom: 1px solid rgba(200,184,165,0.2);
-    display: inline-block;
-    padding: 6px 20px;
-    font-weight: 300;
-  }
   .hero-candle {
     font-size: 24px;
     margin-top: 28px;
@@ -176,6 +166,192 @@
     transform: scale(1.08);
   }
 
+
+  /* === Gallery item animations === */
+  .gallery-item.anim-fadeUp {
+    animation: animFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .gallery-item.anim-fadeLeft {
+    animation: animFadeLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .gallery-item.anim-fadeRight {
+    animation: animFadeRight 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .gallery-item.anim-zoomIn {
+    animation: animZoomIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes animFadeUp {
+    from { opacity: 0; transform: translateY(40px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes animFadeLeft {
+    from { opacity: 0; transform: translateX(-40px) scale(0.97); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes animFadeRight {
+    from { opacity: 0; transform: translateX(40px) scale(0.97); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes animZoomIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Hover glow + lift */
+  .gallery-item::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    box-shadow: inset 0 0 30px rgba(255,220,180,0.15);
+  }
+  .gallery-item:hover::after {
+    opacity: 1;
+  }
+  .gallery-item:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    transform: translateY(-4px);
+  }
+
+  /* Video overlay play button */
+  .gallery-item .play-overlay {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: rgba(255,255,255,0.7);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  .gallery-item:hover .play-overlay {
+    background: rgba(255,255,255,0.3);
+    border-color: rgba(255,255,255,0.8);
+    color: #fff;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .gallery-item:hover video {
+    transform: scale(1.08);
+  }
+
+  /* Lightbox video */
+  .lightbox video {
+    max-width: 92vw;
+    max-height: 88vh;
+    border-radius: 3px;
+    box-shadow: 0 12px 60px rgba(0,0,0,0.6);
+    animation: zoomIn 0.3s ease;
+  }
+
+  /* === Gallery item animations === */
+  .gallery-item.anim-fadeUp {
+    animation: animFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .gallery-item.anim-fadeLeft {
+    animation: animFadeLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .gallery-item.anim-fadeRight {
+    animation: animFadeRight 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .gallery-item.anim-zoomIn {
+    animation: animZoomIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes animFadeUp {
+    from { opacity: 0; transform: translateY(40px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes animFadeLeft {
+    from { opacity: 0; transform: translateX(-40px) scale(0.97); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes animFadeRight {
+    from { opacity: 0; transform: translateX(40px) scale(0.97); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes animZoomIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Hover glow + lift */
+  .gallery-item::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    box-shadow: inset 0 0 30px rgba(255,220,180,0.15);
+  }
+  .gallery-item:hover::after {
+    opacity: 1;
+  }
+  .gallery-item:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    transform: translateY(-4px);
+  }
+
+  /* Video overlay */
+  .gallery-item .play-overlay {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px; height: 48px;
+    background: rgba(255,255,255,0.25);
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: rgba(255,255,255,0.8);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  .gallery-item:hover .play-overlay {
+    background: rgba(255,255,255,0.35);
+    border-color: #fff;
+    color: #fff;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+  .gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .gallery-item:hover video {
+    transform: scale(1.08);
+  }
+
+  /* Lightbox video */
+  .lightbox video {
+    max-width: 92vw;
+    max-height: 88vh;
+    border-radius: 3px;
+    box-shadow: 0 12px 60px rgba(0,0,0,0.6);
+    animation: zoomIn 0.3s ease;
+  }
   /* === Lightbox === */
   .lightbox {
     display: none;
@@ -272,8 +448,7 @@
     .hero { padding: 60px 16px 50px; }
     .hero h1 { font-size: 32px; letter-spacing: 8px; }
     .hero .subtitle { font-size: 13px; letter-spacing: 6px; }
-    .hero .years { font-size: 15px; }
-    .message-wrap { padding: 36px 16px 24px; }
+      .message-wrap { padding: 36px 16px 24px; }
     .message-wrap p { font-size: 15px; line-height: 1.9; }
     .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
     .lightbox { padding: 12px; }
@@ -290,7 +465,6 @@
     <div class="hero-ornament">✺</div>
     <h1>朱雪梅</h1>
     <div class="subtitle">永 远 怀 念</div>
-    <div class="years">1955 — 2023</div>
     <div class="hero-candle">🕯</div>
   </div>
 </div>
@@ -343,37 +517,63 @@
 </div>
 
 <script>
-const photos = [
-  "DSC_0014.JPG", "DSC_0017.JPG", "DSC_0019.JPG", "DSC_0021.JPG", "DSC_0045.JPG", "DSC_0046.JPG",
-  "DSC_0079.JPG", "DSC_0114.JPG", "IMG_0193.JPG", "IMG_3764.JPG", "IMG_3773.JPG", "IMG_3774.JPG",
-  "IMG_3840.JPG", "IMG_6032.JPG", "IMG_6033.JPG", "IMG_6038.JPG", "IMG_6040.JPG", "IMG_6057.JPG",
-  "IMG_6064.JPG", "IMG_6074.JPG", "IMG_6075.JPG", "IMG_6076.JPG", "IMG_6077.JPG", "IMG_6095.JPG",
-  "IMG_6103.JPG", "IMG_6116.JPG", "IMG_6120.JPG", "IMG_6121.JPG", "IMG_6124.JPG", "IMG_6125.JPG",
-  "IMG_8058.JPG", "IMG_8058_1.JPG", "P5310009.JPG", "P9290005.JPG", "P9290014.JPG", "P9290015.JPG",
-  "P9290016.JPG", "P9300003.JPG", "P9300006.JPG", "P9300010.JPG", "P9300014.JPG", "P9300015.JPG",
-  "P9300016.JPG", "PA010013.JPG", "PA010016.JPG", "PIC_2336.JPG", "_DSC8873.JPG", "_DSC8874.JPG",
-  "pic 022.JPG", "pic 025.JPG", "pic 026.JPG", "pic 031.JPG", "pic 032.JPG", "pic 035.JPG",
-  "pic 036.JPG", "pic 037.JPG", "pic 041.JPG", "pic 051.JPG", "pic 052.JPG", "微信图片_20230906084724.jpg",
-  "微信图片_20231101104734.jpg", "微信图片_20231102082608.jpg", "微信图片_20231102082652.jpg", "微信图片_20231102093903.jpg", "微信图片_20231102093920.jpg", "微信图片_20231102093925.jpg",
-  "微信图片_20231102093933.jpg", "微信图片_20231102093939.jpg", "微信图片_20231102133107.jpg", "微信图片_20231106081217.jpg", "微信图片_20231106081226.jpg", "微信图片_20231106082348.jpg",
-  "微信图片_20231106082349.jpg", "微信图片_20231107075018.jpg", "微信图片_20231107091426.jpg", "微信图片_20231113075536.jpg", "微信图片_20231113075542.jpg", "微信图片_20231113105027.jpg",
-  "微信图片_20231113143616.jpg", "微信图片_20231113150511.jpg", "微信图片_20231113151322.jpg", "微信图片_202311132205101.jpg", "微信图片_202311132209291.jpg", "微信图片_202311132210511.jpg",
-  "微信图片_202311132210513.jpg", "微信图片_20231113221059.jpg", "微信图片_202311182105591.jpg", "照片 003.jpg", "照片 004.jpg", "照片 005.jpg",
-  "照片 007.jpg", "照片 023.jpg"
+const mediaFiles = [
+  "IMG_6103.JPG", "_DSC8873.JPG", "IMG_6064.JPG", "pic 026.JPG", "P9300014.JPG", "微信图片_20231102093939.jpg",
+  "DSC_0045.JPG", "62dbb680802ec2e0cc86ee8c99a5f719.mp4", "微信图片_20231102133107.jpg", "微信图片_20231106081217.jpg", "P9300015.JPG", "ab7bc28d14789e77b33462452044bcff.mp4",
+  "413cf84cefe1c349eed9392313b9c5b6.mp4", "微信图片_20231102082608.jpg", "IMG_3773.JPG", "微信图片_202311132210513.jpg", "IMG_3764.JPG", "IMG_3774.JPG",
+  "IMG_6120.JPG", "P9290016.JPG", "微信图片_20231102093933.jpg", "pic 051.JPG", "DSC_0079.JPG", "pic 035.JPG",
+  "微信图片_20231102093920.jpg", "照片 003.jpg", "IMG_6074.JPG", "715dedc5da4c0fb5d48373b81993200c.mp4", "P5310009.JPG", "IMG_6075.JPG",
+  "微信图片_20231101104734.jpg", "照片 004.jpg", "PA010016.JPG", "P9290015.JPG", "IMG_6040.JPG", "P9300003.JPG",
+  "微信图片_20231102082652.jpg", "微信图片_202311132210511.jpg", "P9300016.JPG", "DSC_0114.JPG", "微信图片_20231106082348.jpg", "微信图片_20231107075018.jpg",
+  "DSC_0017.JPG", "微信图片_20231113075542.jpg", "微信图片_202311132205101.jpg", "照片 023.jpg", "DSC_0021.JPG", "微信图片_20231102093903.jpg",
+  "IMG_6116.JPG", "IMG_6033.JPG", "IMG_6095.JPG", "微信图片_20231113150511.jpg", "pic 037.JPG", "微信图片_20231106082349.jpg",
+  "pic 031.JPG", "微信图片_20231102093925.jpg", "pic 032.JPG", "微信图片_202311182105591.jpg", "照片 007.jpg", "微信图片_20231113105027.jpg",
+  "IMG_6125.JPG", "照片 005.jpg", "微信图片_20231107091426.jpg", "ea4119a3739ecd2af8db0974de8da4a7.mp4", "PIC_2336.JPG", "IMG_6121.JPG",
+  "IMG_8058.JPG", "IMG_6076.JPG", "微信图片_202311132209291.jpg", "DSC_0046.JPG", "pic 052.JPG", "P9300006.JPG",
+  "P9290005.JPG", "PA010013.JPG", "IMG_6057.JPG", "IMG_3840.JPG", "IMG_0193.JPG", "pic 025.JPG",
+  "微信图片_20231113221059.jpg", "P9290014.JPG", "IMG_6124.JPG", "IMG_6077.JPG", "微信图片_20230906084724.jpg", "微信图片_20231113143616.jpg",
+  "P9300010.JPG", "微信图片_20231106081226.jpg", "微信图片_20231113075536.jpg", "IMG_3986.MP4", "IMG_6038.JPG", "DSC_0014.JPG",
+  "DSC_0019.JPG", "pic 022.JPG", "_DSC8874.JPG", "IMG_6032.JPG", "微信图片_20231113151322.jpg", "pic 041.JPG",
+  "IMG_3984.MP4", "pic 036.JPG", "IMG_8058_1.JPG"
 ];
 
 const gallery = document.getElementById('gallery');
 let currentIndex = 0;
 
-// Render gallery
-photos.forEach((name, i) => {
+// Render gallery (shuffled + animations)
+const animClasses = ['anim-fadeUp', 'anim-fadeLeft', 'anim-fadeRight', 'anim-zoomIn'];
+
+mediaFiles.forEach((name, i) => {
   const div = document.createElement('div');
   div.className = 'gallery-item';
-  const img = document.createElement('img');
-  img.loading = 'lazy';
-  img.src = encodeURI(name);
-  img.alt = '';
-  div.appendChild(img);
+  div.style.animationDelay = (Math.random() * 0.3 + 0.05).toFixed(2) + 's';
+
+  const isVideo = /\.(mp4|mov|avi)$/i.test(name);
+
+  if (isVideo) {
+    const video = document.createElement('video');
+    video.src = encodeURI(name);
+    video.muted = true;
+    video.loop = true;
+    video.preload = 'metadata';
+    video.playsInline = true;
+    div.appendChild(video);
+    const overlay = document.createElement('div');
+    overlay.className = 'play-overlay';
+    overlay.textContent = '▶';
+    div.appendChild(overlay);
+    div.addEventListener('mouseenter', () => video.play());
+    div.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+  } else {
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.src = encodeURI(name);
+    img.alt = '';
+    div.appendChild(img);
+  }
+
+  div.classList.add(animClasses[Math.floor(Math.random() * animClasses.length)]);
+
   div.addEventListener('click', () => openLightbox(i));
   gallery.appendChild(div);
 });
@@ -397,22 +597,68 @@ const lbCounter = document.getElementById('lightbox-counter');
 
 function openLightbox(idx) {
   currentIndex = idx;
-  lbImg.src = encodeURI(photos[idx]);
-  lbCounter.textContent = (idx + 1) + ' / ' + photos.length;
+  const name = mediaFiles[idx];
+  const isVideo = /\.(mp4|mov|avi)$/i.test(name);
+
+  const oldVideo = document.getElementById('lb-video');
+  if (oldVideo) oldVideo.remove();
+  lbImg.style.display = 'none';
+
+  if (isVideo) {
+    const video = document.createElement('video');
+    video.id = 'lb-video';
+    video.src = encodeURI(name);
+    video.controls = true;
+    video.autoplay = true;
+    video.style.maxWidth = '92vw';
+    video.style.maxHeight = '88vh';
+    video.style.borderRadius = '3px';
+    video.style.boxShadow = '0 12px 60px rgba(0,0,0,0.6)';
+    video.style.animation = 'zoomIn 0.3s ease';
+    lb.insertBefore(video, document.getElementById('lightbox-counter'));
+  } else {
+    lbImg.style.display = '';
+    lbImg.src = encodeURI(name);
+  }
+
+  lbCounter.textContent = (idx + 1) + ' / ' + mediaFiles.length;
   lb.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 function closeLightbox() {
   lb.classList.remove('active');
   document.body.style.overflow = '';
+  const video = document.getElementById('lb-video');
+  if (video) { video.pause(); video.remove(); }
+  lbImg.style.display = '';
 }
 function changeImage(dir) {
-  currentIndex = (currentIndex + dir + photos.length) % photos.length;
-  lbImg.style.animation = 'none';
-  lbImg.offsetHeight; // trigger reflow
-  lbImg.src = encodeURI(photos[currentIndex]);
-  lbImg.style.animation = 'zoomIn 0.25s ease';
-  lbCounter.textContent = (currentIndex + 1) + ' / ' + photos.length;
+  currentIndex = (currentIndex + dir + mediaFiles.length) % mediaFiles.length;
+  const name = mediaFiles[currentIndex];
+  const isVideo = /\.(mp4|mov|avi)$/i.test(name);
+
+  const oldVideo = document.getElementById('lb-video');
+  if (oldVideo) oldVideo.remove();
+  lbImg.style.display = 'none';
+
+  if (isVideo) {
+    const video = document.createElement('video');
+    video.id = 'lb-video';
+    video.src = encodeURI(name);
+    video.controls = true;
+    video.autoplay = true;
+    video.style.maxWidth = '92vw';
+    video.style.maxHeight = '88vh';
+    video.style.borderRadius = '3px';
+    video.style.boxShadow = '0 12px 60px rgba(0,0,0,0.6)';
+    video.style.animation = 'zoomIn 0.3s ease';
+    lb.insertBefore(video, document.getElementById('lightbox-counter'));
+  } else {
+    lbImg.style.display = '';
+    lbImg.src = encodeURI(name);
+  }
+
+  lbCounter.textContent = (currentIndex + 1) + ' / ' + mediaFiles.length;
 }
 
 document.addEventListener('keydown', e => {
