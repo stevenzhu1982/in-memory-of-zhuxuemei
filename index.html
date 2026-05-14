@@ -538,12 +538,11 @@ const aspectRatios = mediaFiles.map(() => {
 });
 
 // Generate gallery items interleaved with quote blocks
-let itemIdx = 0;
 let quoteIdx = 0;
 const totalItems = mediaFiles.length;
 const quoteInterval = Math.max(8, Math.floor(totalItems / quotes.length));
 
-while (itemIdx < totalItems) {
+for (let itemIdx = 0; itemIdx < totalItems; itemIdx++) {
   // Insert a quote block every quoteInterval items, also at start
   if ((itemIdx > 0 && itemIdx % quoteInterval === 0) || (itemIdx === 0 && totalItems > 3)) {
     const qd = quotes[quoteIdx % quotes.length];
@@ -592,7 +591,6 @@ while (itemIdx < totalItems) {
   div.dataset.animDelay = (Math.random() * 0.3 + 0.05).toFixed(2);
   div.addEventListener('click', () => openLightbox(itemIdx));
   gallery.appendChild(div);
-  itemIdx++;
 }
 
 // Scroll-triggered animations — activate on first visibility
