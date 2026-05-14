@@ -426,16 +426,29 @@
   }
 
   @media (max-width: 600px) {
-    .hero { padding: 60px 16px 50px; }
-    .hero h1 { font-size: 32px; letter-spacing: 8px; }
-    .hero .subtitle { font-size: 13px; letter-spacing: 6px; }
-      .message-wrap { padding: 36px 16px 24px; }
-    .message-wrap p { font-size: 15px; line-height: 1.9; }
-    .gallery { column-count: 2; column-gap: 12px; }
-    .lightbox { padding: 12px; }
-    .lightbox .nav { opacity: 0.6; font-size: 32px; padding: 8px 10px; }
-    .lightbox .nav.prev { left: 2px; }
-    .lightbox .nav.next { right: 2px; }
+    .hero { padding: 50px 16px 36px; }
+    .hero h1 { font-size: 28px; letter-spacing: 6px; }
+    .hero .subtitle { font-size: 12px; letter-spacing: 4px; }
+    .hero-ornament { font-size: 22px; margin-bottom: 12px; }
+    .hero-candle { font-size: 20px; margin-top: 20px; }
+    .message-wrap { padding: 28px 16px 16px; }
+    .message-wrap p { font-size: 14px; line-height: 1.85; }
+    .name-tag { font-size: 17px; }
+    .gallery { column-count: 2; column-gap: 6px; }
+    .gallery-item { margin-bottom: 6px; border-radius: 4px; }
+    .quote-block { margin-bottom: 6px; padding: 10px 8px; font-size: 11px; min-height: 54px; border-radius: 4px; }
+    .lightbox { padding: 0; }
+    .lightbox img, .lightbox video { border-radius: 0; }
+    .lightbox .nav {
+      opacity: 0.7; font-size: 24px; padding: 18px 8px;
+      background: rgba(0,0,0,0.15);
+    }
+    .lightbox .nav.prev { left: 0; }
+    .lightbox .nav.next { right: 0; }
+    .lightbox .close { font-size: 24px; top: 8px; right: 12px; padding: 8px; }
+    .lightbox .counter { font-size: 11px; bottom: 12px; }
+    .gallery-item:active { transform: scale(0.97); transition: transform 0.15s; }
+    .footer { font-size: 11px; letter-spacing: 2px; padding: 8px 16px 36px; }
   }
 </style>
 </head>
@@ -690,6 +703,20 @@ document.addEventListener('keydown', e => {
 lb.addEventListener('click', e => {
   if (e.target === lb) closeLightbox();
 });
+
+// Touch swipe for lightbox navigation (mobile)
+let touchStartX = 0, touchStartY = 0;
+lb.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+lb.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  const dy = e.changedTouches[0].screenY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+    if (dx < 0) changeImage(1); else changeImage(-1);
+  }
+}, { passive: true });
 </script>
 
 </body>
