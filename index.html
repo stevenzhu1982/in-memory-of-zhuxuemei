@@ -127,64 +127,72 @@
   }
 
   .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-    padding-bottom: 40px;
+    column-count: 4;
+    column-gap: 24px;
+    padding-bottom: 24px;
   }
 
   .gallery-item {
     position: relative;
     overflow: hidden;
-    border-radius: 4px;
+    border-radius: 6px;
     background: #e8e0d5;
-    aspect-ratio: 4/3;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     opacity: 0;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 24px;
+    break-inside: avoid;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.5s ease;
   }
   .gallery-item:hover {
-    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+    transform: translateY(-6px);
     z-index: 2;
   }
-  .gallery-item img {
+  /* Aspect ratio variants applied to the media wrapper */
+  .gallery-item .media-wrap {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 6px;
+  }
+  .gallery-item .media-wrap img,
+  .gallery-item .media-wrap video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     display: block;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    object-fit: cover;
   }
-  .gallery-item:hover img {
-    transform: scale(1.08);
+  /* Film-like filter: desaturated B&W default → color on hover */
+  .gallery-item .media-wrap img,
+  .gallery-item .media-wrap video {
+    filter: saturate(0.65) contrast(1.12) brightness(0.95) grayscale(0.6);
+    transition: filter 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .gallery-item:hover .media-wrap img,
+  .gallery-item:hover .media-wrap video {
+    filter: saturate(0.75) contrast(1.05) brightness(1.0) grayscale(0);
+    transform: scale(1.06);
+  }
+  /* Aspect ratio classes */
+  .gallery-item .media-wrap.ar-square {
+    aspect-ratio: 1 / 1;
+  }
+  .gallery-item .media-wrap.ar-portrait {
+    aspect-ratio: 4 / 5;
+  }
+  .gallery-item .media-wrap.ar-landscape {
+    aspect-ratio: 16 / 9;
+  }
+  .gallery-item .media-wrap.ar-wide {
+    aspect-ratio: 2 / 1;
   }
 
-  /* CSS Mask Reveal on hover */
-  .gallery-item .mask-reveal {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, rgba(255,220,180,0.25), rgba(255,180,120,0.1));
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .gallery-item:hover .mask-reveal {
-    opacity: 1;
-  }
-  .gallery-item .img-border {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border: 2px solid rgba(255,220,180,0.15);
-    border-radius: 4px;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .gallery-item:hover .img-border {
-    opacity: 1;
-  }
+
 
   /* === Gallery item animations === */
   .gallery-item.anim-fadeUp {
@@ -215,47 +223,55 @@
     from { opacity: 0; transform: scale(0.85); }
     to { opacity: 1; transform: scale(1); }
   }
-
-  /* Hover lift + glow */
-  .gallery-item:hover {
-    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-    transform: translateY(-4px);
-  }
-
-  /* Video overlay play button */
-  .gallery-item .play-overlay {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 48px; height: 48px;
-    background: rgba(255,255,255,0.2);
-    border: 2px solid rgba(255,255,255,0.5);
-    border-radius: 50%;
+  /* === Quote blocks === */
+  .quote-block {
+    break-inside: avoid;
+    margin-bottom: 24px;
+    padding: 20px 16px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    color: rgba(255,255,255,0.7);
-    pointer-events: none;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(4px);
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.7;
+    letter-spacing: 2px;
+    color: #6a5a4a;
+    opacity: 0;
+    min-height: 90px;
   }
-  .gallery-item:hover .play-overlay {
-    background: rgba(255,255,255,0.3);
-    border-color: rgba(255,255,255,0.8);
-    color: #fff;
-    transform: translate(-50%, -50%) scale(1.1);
+  .quote-block.qb-cream {
+    background: #f5ede0;
+    border: 1px solid #e8ddd0;
+    color: #8a7a6a;
   }
-  .gallery-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  .quote-block.qb-warm {
+    background: #faf0e6;
+    border: 1px solid #e8d5c0;
+    color: #9a7a5a;
   }
-  .gallery-item:hover video {
-    transform: scale(1.08);
+  .quote-block.qb-muted {
+    background: #f0ece6;
+    border: 1px solid #ddd8d0;
+    color: #7a7a7a;
+    font-style: italic;
   }
+  .quote-block.qb-rose {
+    background: #f8ece8;
+    border: 1px solid #e8d8d0;
+    color: #8a6a6a;
+  }
+  .quote-block .qb-icon {
+    font-size: 18px;
+    opacity: 0.35;
+    margin-bottom: 6px;
+    letter-spacing: 4px;
+  }
+
+
+
+
+
 
   /* Lightbox video */
   .lightbox video {
@@ -403,13 +419,19 @@
   ::-webkit-scrollbar-thumb { background: #d5cdc0; border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: #b5a898; }
 
+  @media (max-width: 900px) {
+    .gallery { column-count: 3; column-gap: 16px; }
+    .gallery-item { margin-bottom: 16px; }
+    .quote-block { margin-bottom: 16px; padding: 16px 12px; font-size: 13px; min-height: 70px; }
+  }
+
   @media (max-width: 600px) {
     .hero { padding: 60px 16px 50px; }
     .hero h1 { font-size: 32px; letter-spacing: 8px; }
     .hero .subtitle { font-size: 13px; letter-spacing: 6px; }
       .message-wrap { padding: 36px 16px 24px; }
     .message-wrap p { font-size: 15px; line-height: 1.9; }
-    .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+    .gallery { column-count: 2; column-gap: 12px; }
     .lightbox { padding: 12px; }
     .lightbox .nav { opacity: 0.6; font-size: 32px; padding: 8px 10px; }
     .lightbox .nav.prev { left: 2px; }
@@ -502,9 +524,44 @@ let currentIndex = 0;
 // Render gallery (shuffled + animations)
 const animClasses = ['anim-fadeUp', 'anim-fadeLeft', 'anim-fadeRight', 'anim-zoomIn'];
 
-mediaFiles.forEach((name, i) => {
+// Quotes to intersperse
+const quotes = [["岁月无痕", "思念有声"], ["天上星", "人间花"], ["此情可待", "成追忆"], ["春风十里", "不如你"], ["花开一季", "思念一生"], ["你在天堂", "在我们心上"], ["时光慢些", "再慢些"], ["一别如斯", "梨花落尽"]];
+const qbClasses = ["qb-cream", "qb-warm", "qb-muted", "qb-rose"];
+
+// Assign random aspect ratio to each item
+const aspectRatios = mediaFiles.map(() => {
+  const r = Math.random();
+  if (r < 0.3) return 'ar-square';
+  if (r < 0.6) return 'ar-portrait';
+  if (r < 0.85) return 'ar-landscape';
+  return 'ar-wide';
+});
+
+// Generate gallery items interleaved with quote blocks
+let itemIdx = 0;
+let quoteIdx = 0;
+const totalItems = mediaFiles.length;
+const quoteInterval = Math.max(8, Math.floor(totalItems / quotes.length));
+
+while (itemIdx < totalItems) {
+  // Insert a quote block every quoteInterval items, also at start
+  if ((itemIdx > 0 && itemIdx % quoteInterval === 0) || (itemIdx === 0 && totalItems > 3)) {
+    const qd = quotes[quoteIdx % quotes.length];
+    const qb = document.createElement('div');
+    qb.className = 'quote-block ' + qbClasses[quoteIdx % qbClasses.length];
+    qb.innerHTML = '<div class="qb-icon">&#10045;</div><div>' + qd[0] + '<br>' + qd[1] + '</div>';
+    qb.dataset.animClass = animClasses[Math.floor(Math.random() * animClasses.length)];
+    qb.dataset.animDelay = (Math.random() * 0.3 + 0.05).toFixed(2);
+    gallery.appendChild(qb);
+    quoteIdx++;
+  }
+
+  const name = mediaFiles[itemIdx];
   const div = document.createElement('div');
   div.className = 'gallery-item';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'media-wrap ' + aspectRatios[itemIdx];
 
   const isVideo = /\.(mp4|mov|avi)$/i.test(name);
 
@@ -515,11 +572,11 @@ mediaFiles.forEach((name, i) => {
     video.loop = true;
     video.preload = 'metadata';
     video.playsInline = true;
-    div.appendChild(video);
+    wrap.appendChild(video);
     const overlay = document.createElement('div');
     overlay.className = 'play-overlay';
-    overlay.textContent = '▶';
-    div.appendChild(overlay);
+    overlay.textContent = '\u25b6';
+    wrap.appendChild(overlay);
     div.addEventListener('mouseenter', () => video.play());
     div.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
   } else {
@@ -527,23 +584,16 @@ mediaFiles.forEach((name, i) => {
     img.loading = 'lazy';
     img.src = encodeURI(name);
     img.alt = '';
-    div.appendChild(img);
-    // Mask reveal overlay
-    const mask = document.createElement('div');
-    mask.className = 'mask-reveal';
-    div.appendChild(mask);
-    const border = document.createElement('div');
-    border.className = 'img-border';
-    div.appendChild(border);
+    wrap.appendChild(img);
   }
 
-  // Don't add animation class yet — observer will do it on scroll
+  div.appendChild(wrap);
   div.dataset.animClass = animClasses[Math.floor(Math.random() * animClasses.length)];
   div.dataset.animDelay = (Math.random() * 0.3 + 0.05).toFixed(2);
-
-  div.addEventListener('click', () => openLightbox(i));
+  div.addEventListener('click', () => openLightbox(itemIdx));
   gallery.appendChild(div);
-});
+  itemIdx++;
+}
 
 // Scroll-triggered animations — activate on first visibility
 const observer = new IntersectionObserver((entries) => {
@@ -558,7 +608,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08, rootMargin: '0px 0px 60px 0px' });
 
-document.querySelectorAll('.gallery-item').forEach(el => observer.observe(el));
+document.querySelectorAll('.gallery-item, .quote-block').forEach(el => observer.observe(el));
 
 // Lightbox
 const lb = document.getElementById('lightbox');
